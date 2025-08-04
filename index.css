@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+.mobile {
+  background-color: black;
+}
+.mobile__container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.mobile__loadingScreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#loader-container {
+  width: 100%;
+  border: white solid 1px;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+#loader-bar {
+  height: 100%;
+  width: 0%;
+  background: white;
+  transition: width 0.05s linear;
+}
+.mobile__loadingScreen--quote {
+  color: white;
+}
