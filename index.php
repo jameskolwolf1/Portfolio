@@ -14,7 +14,7 @@ $mobileQuotes = array(
         "I only got an iphone because of FaceTime"
     ),
     array(
-        "./images/logo/androidLogo.png",
+        "./images/logo/andriodLogo.png",
         "I love android and I love Java but we can do better"
     )
 );
@@ -33,42 +33,122 @@ $desktopQuotes = array();
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
-    <div class="mobile">
-        <div class="mobile__container">
-            <div class="mobile__loadingScreen">
-                <img src=<?php echo $mobileQuotes[$randomNumber][0] ?> alt="">
-                <div class="mobile__loader" id="loader-container">
-                    <div class="mobile__bar" id="loader-bar"></div>
+<body class="booting">
+    <div class="boot-screen" id="boot-screen" aria-live="polite">
+        <div class="boot-screen__computer" role="presentation">
+            <div class="boot-screen__bezel">
+                <div class="boot-screen__display">
+                    <img src="./images/logo/dell_logo.png" alt="Dell logo" class="boot-screen__logo">
+                    <p class="boot-screen__status" id="boot-status">Booting...</p>
+                    <div class="boot-screen__os-select" role="group" aria-label="Operating system selection" aria-hidden="true">
+                        <p class="boot-screen__os-title">Select OS</p>
+                        <div class="boot-screen__os-options" id="os-options" tabindex="0" aria-label="Use up and down arrow keys to choose an operating system">
+                            <button type="button" class="boot-screen__os-option" data-os="Windows 11">Windows 11</button>
+                            <button type="button" class="boot-screen__os-option" data-os="Linux">Linux</button>
+                            <button type="button" class="boot-screen__os-option" data-os="macOS">macOS</button>
+                        </div>
+                    </div>
                 </div>
-
-                <script>
-                    const loader = document.getElementById('loader-bar');
-                    let progress = 0;
-
-                    function easeOutRate(p) {
-                        return 1 - Math.pow(1 - p, 1);
-                    }
-
-                    function updateBar() {
-                        if (progress >= 100) return;
-                        progress += 0.1;
-                        let easedProgress = easeOutRate(progress / 100) * 100;
-                        loader.style.width = `${easedProgress}%`;
-                        requestAnimationFrame(updateBar);
-                    }
-                    updateBar();
-                </script>
-
-                <p class="mobile__loadingScreen--quote">
-                    <?php echo $mobileQuotes[$randomNumber][1] ?>
-                </p>
             </div>
-
+            <div class="boot-screen__base"></div>
+        </div>
+        <div class="boot-screen__bottom" aria-hidden="true">
+            <div class="boot-screen__progress">
+                <div class="boot-screen__progress-bar" id="boot-progress"></div>
+            </div>
+            <button type="button" class="boot-screen__bios">F2 BIOS</button>
         </div>
     </div>
-    <div class="desktop">
-    </div>
+
+    <script>
+        const bootScreen = document.getElementById('boot-screen');
+        const bootProgress = document.getElementById('boot-progress');
+        const bootStatus = document.getElementById('boot-status');
+        const osSelect = document.querySelector('.boot-screen__os-select');
+        const osOptions = document.getElementById('os-options');
+        const osButtons = Array.from(document.querySelectorAll('.boot-screen__os-option'));
+        let bootValue = 0;
+        let selectedOs = 'Windows 11';
+        let bootComplete = false;
+        let focusedOsIndex = 0;
+
+        function setFocusedOs(index) {
+            focusedOsIndex = (index + osButtons.length) % osButtons.length;
+            osButtons.forEach((button, buttonIndex) => {
+                button.classList.toggle('boot-screen__os-option--focused', buttonIndex === focusedOsIndex);
+            });
+        }
+
+        function selectOs(index) {
+            if (!bootComplete) return;
+
+            setFocusedOs(index);
+            const selectedButton = osButtons[focusedOsIndex];
+            selectedOs = selectedButton.dataset.os;
+            osButtons.forEach((button) => button.classList.remove('boot-screen__os-option--active'));
+            selectedButton.classList.add('boot-screen__os-option--active');
+            bootStatus.textContent = `Booting ${selectedOs}...`;
+
+            setTimeout(() => {
+                bootScreen.classList.add('boot-screen--hidden');
+                bootScreen.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('booting');
+            }, 500);
+        }
+
+        osButtons.forEach((button, index) => {
+            button.addEventListener('click', () => selectOs(index));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!bootComplete || !bootScreen.classList.contains('boot-screen--os-ready')) return;
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                setFocusedOs(focusedOsIndex + 1);
+                return;
+            }
+
+            if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                setFocusedOs(focusedOsIndex - 1);
+                return;
+            }
+
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                selectOs(focusedOsIndex);
+            }
+        });
+
+        function animateBoot() {
+            if (bootValue < 100) {
+
+                if(bootValue >=84){
+
+                    bootValue += 99;
+                    bootProgress.style.width = `${Math.min(bootValue, 100)}%`;
+                    requestAnimationFrame(animateBoot);
+
+                    return;
+                }
+
+                bootValue += .05;
+                bootProgress.style.width = `${Math.min(bootValue, 100)}%`;
+                requestAnimationFrame(animateBoot);
+                return;
+            }
+
+            bootComplete = true;
+            setFocusedOs(focusedOsIndex);
+            bootStatus.textContent = 'Loading complete. Use up/down arrows and press Enter.';
+            osSelect.setAttribute('aria-hidden', 'false');
+            bootScreen.classList.add('boot-screen--os-ready');
+            osOptions.focus();
+        }
+
+        requestAnimationFrame(animateBoot);
+    </script>
 </body>
 
 </html>
