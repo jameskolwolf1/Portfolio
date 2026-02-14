@@ -38,7 +38,7 @@ body.booting {
   height: 100vh;
   z-index: 1200;
   background: #0033aa;
-  color: #dbe8ff;
+  color: black;
   font-family: "Courier New", monospace;
   padding: 0;
   line-height: 1.45;
@@ -57,12 +57,49 @@ body.booting {
 }
 
 .bios-screen__header {
-  border: 1px solid #dbe8ff;
   padding: 12px 10px;
+  color: white;
   margin-bottom: 0;
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   text-align: center;
   text-transform: uppercase;
+}
+
+.bios-screen__tabs {
+  display: flex;
+  align-items: stretch;
+  margin-left: 3rem;
+  border-top: 0;
+  border-bottom: 0;
+  background: #0033aa;
+}
+
+.bios-screen__tab {
+  border: 0;
+  background: transparent;
+  color: #dbe8ff;
+  font-family: inherit;
+  font-size: 1.3rem;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.bios-screen__tab:last-child {
+  border-right: 0;
+}
+
+.bios-screen__tab--active {
+  background: grey;
+  color:#0033aa;
+  font-weight: 700;
+  border: none;
+}
+
+.bios-screen__tab:focus-visible {
+
+  border: none;
+  outline: none;
+    box-shadow: none;
 }
 
 .bios-screen__layout {
@@ -73,6 +110,7 @@ body.booting {
   flex: 1;
   width: 100%;
   min-height: 0;
+  background-color: grey;
 }
 
 .bios-screen__sidebar {
@@ -115,23 +153,42 @@ body.booting {
   background-color: gray;
   border: 1px solid white;
   padding-bottom: 0.6rem;
+  padding-top: 1.3rem;
   height: 100%;
+  padding-left: 3rem;
+  padding-right: 3rem;
   overflow: auto;
+  background-color: gray;
 }
+
+.bios-screen__tab-panel {
+  display: none;
+}
+
+.bios-screen__tab-panel--active {
+  display: block;
+}
+
 .bios-screen__container{
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 .bios-screen__hint {
   margin-top: 14px;
-  color: #fff;
+  color: #000;
 }
 
 @media (max-width: 900px) {
+  .bios-screen__tabs {
+    flex-wrap: wrap;
+  }
+
+  .bios-screen__tab {
+    flex: 1 1 auto;
+  }
+
   .bios-screen__layout {
     grid-template-columns: 1fr;
   }
@@ -349,4 +406,14 @@ body.booting {
 
 .mobile__loadingScreen--quote {
   color: white;
+}
+
+.bios-screen__box{
+
+  padding-bottom: 1rem;
+}
+.bios-screen__cpu{
+
+  text-wrap: initial;
+  width: 30vw;
 }
