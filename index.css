@@ -28,7 +28,9 @@ body.booting {
   background: #000;
   overflow: hidden;
   z-index: 1000;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
 }
 
 .bios-screen {
@@ -90,16 +92,15 @@ body.booting {
 
 .bios-screen__tab--active {
   background: grey;
-  color:#0033aa;
+  color: #0033aa;
   font-weight: 700;
   border: none;
 }
 
 .bios-screen__tab:focus-visible {
-
   border: none;
   outline: none;
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .bios-screen__layout {
@@ -122,6 +123,7 @@ body.booting {
   border: 1px solid white;
   padding: 0;
   height: 100%;
+  font-size: 1rem;
 }
 
 .bios-screen__panel {
@@ -132,7 +134,6 @@ body.booting {
 }
 
 .bios-screen__panel-title {
-  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.45rem;
   text-transform: uppercase;
@@ -140,16 +141,16 @@ body.booting {
 
 .bios-screen__panel p {
   margin-bottom: 0.35rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .bios-screen__panel p:last-child {
   margin-bottom: 0;
 }
 
-.bios-screen__body{
+.bios-screen__body {
   grid-column: 1;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   background-color: gray;
   border: 1px solid white;
   padding-bottom: 0.6rem;
@@ -160,6 +161,13 @@ body.booting {
   overflow: auto;
   background-color: gray;
 }
+.screen__body::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  width: 0;
+  background: transparent;
+}
 
 .bios-screen__tab-panel {
   display: none;
@@ -169,8 +177,7 @@ body.booting {
   display: block;
 }
 
-.bios-screen__container{
-
+.bios-screen__container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -258,7 +265,10 @@ body.booting {
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
   pointer-events: none;
 }
 
@@ -408,12 +418,95 @@ body.booting {
   color: white;
 }
 
-.bios-screen__box{
-
+.bios-screen__box {
   padding-bottom: 1rem;
 }
-.bios-screen__cpu{
-
+.bios-screen__cpu {
   text-wrap: initial;
   width: 30vw;
 }
+.bios-screen__container-cache{
+
+  padding-left: 1.5rem;
+}
+.bios-screen__container-edit{
+
+  color: purple;
+}
+
+.bios-screen__container-edit--focused {
+  background: #0033aa;
+  color: #fff;
+}
+
+.bios-screen__container-edit label {
+  margin-right: 1rem;
+}
+
+.bios-screen__field {
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  width: 12ch;
+  padding: 0 0.2rem;
+}
+
+.bios-screen__field:focus {
+  outline: none;
+  border-color: currentColor;
+}
+
+.bios-screen__field--invalid {
+  color: #8b0000;
+  border-color: #8b0000;
+}
+
+.bios-screen__inline-field {
+  width: 16ch;
+}
+
+.bios-screen__picker {
+  position: relative;
+}
+
+.bios-screen__picker-value {
+  cursor: pointer;
+}
+
+.bios-screen__picker--open .bios-screen__picker-value {
+  border-color: currentColor;
+}
+
+.bios-screen__picker-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  min-width: 14ch;
+  border: 1px solid #fff;
+  background: #0033aa;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.bios-screen__picker-menu[hidden] {
+  display: none;
+}
+
+.bios-screen__picker-option {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  padding: 0 0.45rem;
+  cursor: pointer;
+}
+
+.bios-screen__picker-option--active {
+  background: #1441ac;
+  color: #fff;
+}
+
