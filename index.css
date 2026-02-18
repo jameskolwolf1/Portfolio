@@ -308,7 +308,15 @@ body.booting {
   opacity: 0.86;
 }
 
+.windows-desktop__taskbar-container{
+
+  display: flex;
+  flex-direction: row;
+}
+
 .windows-desktop__taskbar {
+  display: flex;
+  justify-content: center;
   height: 52px;
   background: rgba(9, 18, 43, 0.9);
   backdrop-filter: blur(6px);
@@ -318,19 +326,33 @@ body.booting {
   align-items: center;
   gap: 0.7rem;
   padding: 0 0.95rem;
+  width: 95vw;
+}
+.windows-desktop__taskbar-timeDate{
+
+  width: 5vw;
+    display: flex;
+  justify-content: center;
+  height: 52px;
+  background: rgba(9, 18, 43, 0.9);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e8f1ff;
+  display: flex;
+  align-items: center;
 }
 
 .windows-desktop__start,
 .windows-desktop__app {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.06);
   border-radius: 6px;
-  padding: 0.18rem 0.55rem;
+  border: none;
+  padding: 0.18rem 0.40rem;
   font-size: 0.76rem;
+  background: transparent;
+  width: 3rem;
 }
 
 .windows-desktop__clock {
-  margin-left: auto;
   font-size: 0.8rem;
 }
 

@@ -40,12 +40,26 @@ $today = (new DateTimeImmutable('now', new DateTimeZone('America/New_York')))->f
                 <p class="windows-desktop__subtitle">Welcome back.</p>
             </div>
         </div>
-        <div class="windows-desktop__taskbar">
-            <button type="button" class="windows-desktop__start" id="start-button">Start</button>
-            <div class="windows-desktop__app">Edge</div>
-            <div class="windows-desktop__app">Files</div>
-            <a class="windows-desktop__app" href="index.php">Restart</a>
-            <div class="windows-desktop__clock" id="windows-desktop-clock">12:00</div>
+        <div class="windows-desktop__taskbar-container">
+            <div class="windows-desktop__taskbar">
+                <button type="button" class="windows-desktop__start" id="start-button">
+                    <img class="windows-desktop__app" src="./images/logo/window_start_icon.png" alt="">
+                </button>
+            <div class="windows-desktop__app">
+            </div>
+            <div class="windows-desktop__app">
+                <img class="windows-desktop__app" src="./images/logo/folder_icon.png" alt="">
+            </div>
+            <div class="windows-desktop__app">
+                <img class="windows-desktop__app" src="./images/logo/edge_icon.png" alt="">
+            </div>
+            <div class="windows-desktop__app">App Store</div>
+            </div>
+            <div class="windows-desktop__taskbar-timeDate">
+            <div class="windows-desktop__clock">
+                <p id='windows-desktop-clock'></p>
+            </div>
+        </div>
         </div>
     </div>
 
